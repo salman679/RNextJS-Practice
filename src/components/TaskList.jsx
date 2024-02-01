@@ -1,16 +1,12 @@
-/* eslint-disable react/prop-types */
+import { useTasks } from "../contexts/TaskContext";
 import Task from "./Task";
 
-export default function TaskList({ Tasks, onChangeText, onDeleteText }) {
+export default function TaskList() {
+  const tasks = useTasks();
   return (
     <ul>
-      {Tasks.map((ITask) => (
-        <Task
-          key={ITask.id}
-          task={ITask}
-          onChangeText={onChangeText}
-          onDeleteText={onDeleteText}
-        />
+      {tasks.map((ITask) => (
+        <Task key={ITask.id} task={ITask} />
       ))}
     </ul>
   );

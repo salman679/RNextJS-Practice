@@ -1,20 +1,27 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useTasks, useTasksDispatch } from "../contexts/TaskContext";
+import { getNextId } from "../utils/getNextId";
 
-export default function AddTask({ onAdd }) {
-  const [task, setTask] = useState("");
+export default function AddTask() {
+  const [text, setText] = useState("");
+  const tasks = useTasks();
+  const dispatch = useTasksDispatch();
 
   const handleChangeText = (e) => {
-    setTask(e.target.value);
+    setText(e.target.value);
   };
 
   return (
     <div>
-      <input placeholder="Add task" value={task} onChange={handleChangeText} />
+      <input placeholder="Add task" value={text} onChange={handleChangeText} />
       <button
         onClick={() => {
-          onAdd(task);
-          setTask("");
+          dispatch({
+            type: "added",
+            id: getNextId(tasks),
+            text,
+          });
+          setText("");
         }}
       >
         Add

@@ -1,25 +1,19 @@
-export default function taskReducers(Tasks, action) {
+/* eslint-disable no-case-declarations */
+export default function taskReducers(draft, action) {
   switch (action.type) {
     case "added":
-      return [
-        ...Tasks,
-        {
-          id: action.id,
-          text: action.text,
-          done: false,
-        },
-      ];
-    case "changed":
-      return Tasks.map((t) => {
-        if (t.id === action.task.id) {
-          return action.task;
-        } else {
-          return t;
-        }
+      draft.push({
+        id: action.id,
+        text: action.text,
+        done: false,
       });
-
+      break;
+    case "changed":
+      const index = draft.findIndex((t) => t.id === action.task.id);
+      draft[index] = action.task;
+      break;
     case "deleted":
-      return Tasks.filter((t) => t.id !== action.id);
+      return draft.filter((t) => t.id !== action.id);
     default:
       throw Error(`no action matched with ${action.type}`);
   }
