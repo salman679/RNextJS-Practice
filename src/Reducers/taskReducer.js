@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 export default function taskReducers(draft, action) {
   switch (action.type) {
     case "added":
@@ -9,6 +8,7 @@ export default function taskReducers(draft, action) {
       });
       break;
     case "changed":
+      // eslint-disable-next-line no-case-declarations
       const index = draft.findIndex((t) => t.id === action.task.id);
       draft[index] = action.task;
       break;
