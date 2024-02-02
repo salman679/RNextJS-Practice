@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
-import VideoPlayer from "./components/VideoPlayer";
+import ChatRoom from "./components/ChatRoom";
 
 function App() {
-  const [isPlaying, setPlaying] = useState(false);
-  useEffect(() => {
-    // some code
-  });
+  const [show, setShow] = useState(true);
   return (
     <>
-      <button onClick={() => setPlaying(!isPlaying)}>
-        {isPlaying ? "Pause" : "Play"}
-      </button>
-      <VideoPlayer
-        isPlaying={isPlaying}
-        src={`https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4`}
-      />
+      <button onClick={() => setShow(!show)}>{show ? "Hide" : "Show"}</button>
+      {show ? <ChatRoom /> : ""}
     </>
   );
 }
