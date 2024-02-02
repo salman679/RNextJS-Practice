@@ -1,58 +1,21 @@
-import { useImmerReducer } from "use-immer";
+import { useEffect, useState } from "react";
 import "./App.css";
-import taskReducer from "./Reducers/taskReducer";
-import AddTask from "./components/AddTask";
-import TaskList from "./components/TaskList";
-import { initialTasks } from "./data/data";
+import VideoPlayer from "./components/VideoPlayer";
 
 function App() {
-  const [Tasks, dispatch] = useImmerReducer(taskReducer, initialTasks);
-
-  const getNextId = (data) => {
-    const maxId = data.reduce((prev, current) =>
-      prev && prev > current.id ? prev : current.id
-    );
-
-    return maxId + 1;
-  };
-
-  // handlers
-  // handleAddTask
-  const handleAddTask = (text) => {
-    dispatch({
-      type: "added",
-      id: getNextId(Tasks),
-      text,
-    });
-  };
-
-  // handleChangeTask
-  const handleChangeTask = (task) => {
-    dispatch({
-      type: "changed",
-      task,
-    });
-  };
-
-  // handleDeleteTask
-  const handleDeleteTask = (taskId) => {
-    dispatch({
-      type: "deleted",
-      id: taskId,
-    });
-  };
-
+  const [isPlaying, setPlaying] = useState(false);
+  useEffect(() => {
+    // some code
+  });
   return (
     <>
-      <div className="margin">
-        <h1>Prague itinerary</h1>
-        <AddTask onAdd={handleAddTask} />
-        <TaskList
-          Tasks={Tasks}
-          onChangeText={handleChangeTask}
-          onDeleteText={handleDeleteTask}
-        />
-      </div>
+      <button onClick={() => setPlaying(!isPlaying)}>
+        {isPlaying ? "Pause" : "Play"}
+      </button>
+      <VideoPlayer
+        isPlaying={isPlaying}
+        src={`https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4`}
+      />
     </>
   );
 }
