@@ -1,10 +1,9 @@
-import "./App.css";
-import Animation from "./components/Animation";
+import Comments from "./components/Comments";
 
 function App() {
   return (
     <>
-      <Animation />
+      <Comments postId={2} />
     </>
   );
 }
