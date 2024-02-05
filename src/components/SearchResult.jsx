@@ -1,23 +1,24 @@
-import { useEffect, useState } from "react";
-import fetchResults from "../utilities/FetchResult";
+import { useState } from "react";
+import useData from "../hooks/UseData";
 
 export default function SearchResults() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [results, setResults] = useState([]);
+  const results = useData(query, page);
+  //   const [results, setResults] = useState([]);
 
-  useEffect(() => {
-    let ignore = false;
-    // 🔴 Avoid: Fetching without cleanup logic
-    fetchResults(query, page).then((json) => {
-      if (!ignore) {
-        setResults(json);
-      }
-    });
+  //   useEffect(() => {
+  //     let ignore = false;
+  //     // 🔴 Avoid: Fetching without cleanup logic
+  //     fetchResults(query, page).then((json) => {
+  //       if (!ignore) {
+  //         setResults(json);
+  //       }
+  //     });
 
-    // cleanUp
-    return () => (ignore = true);
-  }, [query, page]);
+  //     // cleanUp
+  //     return () => (ignore = true);
+  //   }, [query, page]);
 
   return (
     <div>
