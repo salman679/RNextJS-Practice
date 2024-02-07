@@ -16,6 +16,7 @@ export default function Timer() {
     const ClearInterval = setInterval(onTik, 1000);
 
     return () => clearInterval(ClearInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
