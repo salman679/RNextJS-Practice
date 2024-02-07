@@ -1,5 +1,5 @@
-import Pointer from "./components/Pointer";
+import Timer from "./components/Timer";
 
 export default function App() {
-  return <Pointer />;
+  return <Timer />;
 }
