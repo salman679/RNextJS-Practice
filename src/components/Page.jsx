@@ -17,6 +17,7 @@ export default function Page({ url, onPageChange, addItem }) {
   useEffect(() => {
     onVisit(url);
     // logVisit(url, numberOfItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
   return (
