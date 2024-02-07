@@ -1,44 +1,40 @@
 import { useState } from "react";
-import ChatRoom from "./components/ChatRoom";
+import Page from "./components/Page";
+import { shoppingCardContext } from "./context/ShoppingCardContext";
+
+const items = [
+  {
+    id: 1,
+    title: "Product 1",
+  },
+];
 
 export default function App() {
-  const [roomId, setRoomId] = useState("general");
-  const [showChat, setShowChat] = useState(true);
-  const [serverUrl, setServerUrl] = useState("https://localhost:1234");
+  const [page, setPage] = useState("/home");
+  const [cardItem, setCardItem] = useState(items);
 
-  const handleRoomChange = (e) => {
-    setRoomId(e.target.value);
+  function handleAddItem() {
+    return setCardItem([
+      ...cardItem,
+      {
+        id: 2,
+        title: "ami tomay balobasi",
+      },
+    ]);
+  }
+
+  const handlePageChange = () => {
+    setPage("/card");
   };
-
   return (
     <div>
-      <div>
-        <input
-          type="text"
-          value={serverUrl}
-          onChange={(e) => setServerUrl(e.target.value)}
+      <shoppingCardContext.Provider value={cardItem}>
+        <Page
+          url={page}
+          onPageChange={handlePageChange}
+          addItem={handleAddItem}
         />
-      </div>
-      <div>
-        <button onClick={() => setShowChat((s) => !s)}>
-          {showChat ? "Hide Chat Room" : "Show Chat Room"}
-        </button>
-      </div>
-      {showChat && (
-        <>
-          <hr />
-          <div>
-            Select Chat Room:{" "}
-            <select onChange={handleRoomChange}>
-              <option value="general">General</option>
-              <option value="travel">Travel</option>
-              <option value="music">Music</option>
-            </select>
-          </div>
-
-          <ChatRoom roomId={roomId} serverUrl={serverUrl} />
-        </>
-      )}
+      </shoppingCardContext.Provider>
     </div>
   );
 }
