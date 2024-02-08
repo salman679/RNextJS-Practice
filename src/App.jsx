@@ -1,9 +1,12 @@
-import Chat from "./components/Chat";
+import FormInput from "./components/FormInput";
+import StatusBar from "./components/StatusBar";
 
 export default function App() {
   return (
     <>
-      <Chat />
+      <StatusBar />
+      {/* <SaveButton /> */}
+      <FormInput />
     </>
   );
 }
