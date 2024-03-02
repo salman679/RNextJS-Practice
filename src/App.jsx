@@ -1,34 +1,41 @@
 import { Suspense, useState } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import "./App.css";
-import Comments from "./components/Comments";
-import PostSelector from "./components/PostSelector";
+import demos from "./data/demos";
+import importDemo from "./utils/importDemo";
 
 export default function App() {
-  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [selectedDemo, setSelectedDemo] = useState();
 
-  function handleSelectPost(event) {
-    setSelectedPostId(event.target.value);
-  }
+  const loadDemo = async (file) => {
+    const Demo = await importDemo(file);
+    return <Demo />;
+  };
+
+  const selectDemo = async (file) => {
+    const DemoComponent = await loadDemo(file);
+
+    setSelectedDemo(DemoComponent);
+  };
   return (
     <>
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="text-4xl font-bold">
-          React Suspense and Error Boundaries
-        </h1>
-        <div>
-          <ErrorBoundary fallback={<h1>Error in fetching post...</h1>}>
-            <Suspense fallback={<h1>Loading Post........</h1>}>
-              <PostSelector onSelectPost={handleSelectPost} />
-            </Suspense>
+      <h1 className="text-4xl font-bold">React Lazy Load</h1>
 
-            {selectedPostId && (
-              <Suspense fallback={<h1>Loading Comment...</h1>}>
-                <Comments postId={selectedPostId} />
-              </Suspense>
-            )}
-          </ErrorBoundary>
-        </div>
+      <div className="flex flex-row gap-2">
+        {demos.map((demo) => (
+          <button
+            key={demo.id}
+            className="bg-amber-700 p-2 rounded text-white"
+            onClick={() => selectDemo(demo.file)}
+          >
+            {demo.name}
+          </button>
+        ))}
+      </div>
+
+      <div>
+        <Suspense fallback={<h1>Loading Component...</h1>}>
+          {selectedDemo}
+        </Suspense>
       </div>
     </>
   );
