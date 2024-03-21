@@ -18,7 +18,7 @@ export default function App() {
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="reset" element={<Reset />} />
+          <Route path="/reset" element={<Reset />} />
         </Routes>
       </div>
     </Router>

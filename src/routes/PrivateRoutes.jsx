@@ -1,10 +1,14 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { NavLink, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { auth } from "../firebase";
 
 export default function PrivateRoutes() {
-  const { user, loading } = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
+
+  console.log(user);
+
+  console.log(loading);
 
   if (loading) return <p>Loading user Data...</p>;
-  return <>{user ? <Outlet /> : <NavLink to={"/login"} />}</>;
+  return <>{user?.uid ? <Outlet /> : <Navigate to={"/login"} />}</>;
 }

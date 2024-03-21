@@ -30,8 +30,12 @@ export default function Register() {
   }
 
   async function handleFacebookLogin() {
-    const user = await signInWithFacebook();
-    console.log(user);
+    try {
+      const user = await signInWithFacebook();
+      console.log(user);
+    } catch (err) {
+      console.log(err);
+    }
     navigate("/home");
   }
 

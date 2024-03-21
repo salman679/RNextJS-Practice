@@ -29,13 +29,9 @@ const googleAuthProvider = new GoogleAuthProvider();
 const facebookAuthProvider = new FacebookAuthProvider();
 
 async function registerWithEmailAndPassword(email, password) {
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    return user;
-  } catch (err) {
-    throw new Error(err);
-  }
+  const res = await createUserWithEmailAndPassword(auth, email, password);
+  const user = res.user;
+  return user;
 }
 
 const loginWithEmailAndPassword = async (email, password) => {

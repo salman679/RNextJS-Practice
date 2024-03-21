@@ -6,9 +6,15 @@ import { auth } from "../firebase";
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
 
+  if (error) {
+    console.log(error);
+  }
+
   const navigate = useNavigate();
 
   if (loading) return <p>user info loading</p>;
+
+  console.log("ok");
 
   function handleLogout() {
     signOut(auth)
